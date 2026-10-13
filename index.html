@@ -263,7 +263,7 @@ footer{color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);padd
     </div>
   </header>
 
-  <section class="hero" aria-label="المحاضرة الجاية">
+  <section class="hero" aria-label="المحاضرة القادمة">
     <div class="panel next" id="next"></div>
     <div class="panel term" id="term"></div>
   </section>
@@ -302,7 +302,7 @@ footer{color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);padd
           <div class="chips" id="chips" aria-label="المواد"></div>
         </div>
         <div class="tb-left">
-          <label class="check" id="pastWrap"><input type="checkbox" id="hidePast"> إخفاء اللي فات</label>
+          <label class="check" id="pastWrap"><input type="checkbox" id="hidePast"> إخفاء  السابق</label>
           <div class="seg" id="viewSeg" role="group" aria-label="طريقة العرض">
             <button type="button" id="view-list" data-view="list" aria-pressed="true">قائمة</button>
             <button type="button" id="view-month" data-view="month" aria-pressed="false">شهري</button>
@@ -442,14 +442,14 @@ function renderNext() {
   const el = $('next');
   const T = D.terms[state.sem];
   if (!list.length) {
-    el.innerHTML = `<div class="eyebrow">المحاضرة الجاية</div><p class="muted">مفيش مواد مختارة. اختار مادة أو أكتر من الفلاتر تحت.</p>`;
+    el.innerHTML = `<div class="eyebrow">المحاضرة القادمة</div><p class="muted">مفيش مواد مختارة. اختار مادة أو أكتر من الفلاتر تحت.</p>`;
     return;
   }
   const live = list.find(s => now >= s.s && now < s.e);
   const upcoming = list.filter(s => s.s > now);
   const main = live || upcoming[0];
   if (!main) {
-    el.innerHTML = `<div class="eyebrow">المحاضرة الجاية</div>
+    el.innerHTML = `<div class="eyebrow">المحاضرة القادمة</div>
       <p style="font-family:var(--display);font-weight:600;font-size:1.2rem">محاضرات ${T.name} خلصت</p>
       <p class="muted">الامتحانات ${fmtRange(T.exams[0], T.exams[1])}.${state.sem === 'S1' ? ' الترم الثاني بيبدأ السبت 13 مارس.' : ''}</p>`;
     return;
@@ -461,7 +461,7 @@ function renderNext() {
   const rest = (live ? upcoming : upcoming.slice(1)).slice(0, 3);
   el.innerHTML = `
     <div class="next-head">
-      <div class="eyebrow">${live ? 'المحاضرة دلوقتي' : 'المحاضرة الجاية'}</div>
+      <div class="eyebrow">${live ? 'المحاضرة دلوقتي' : 'المحاضرة القادمة'}</div>
       <span class="count${live || n === 0 ? ' live' : ''}">${countTxt}</span>
     </div>
     <div class="when">
@@ -529,7 +529,7 @@ function renderWeekly() {
         ${who(c.who)}
       </div>
       <div class="prog">
-        <span>${done ? `اتعمل ${done} من ${ss.length}` : `${ss.length} محاضرة`}${nx ? ` · الجاية ${fmtDate(nx.date, {day:false})}` : ' · خلصت'}</span>
+        <span>${done ? `اتعمل ${done} من ${ss.length}` : `${ss.length} محاضرة`}${nx ? ` · القادمة ${fmtDate(nx.date, {day:false})}` : ' · خلصت'}</span>
         <div class="bar"><i style="width:${Math.round(done / ss.length * 100)}%"></i></div>
       </div>
     </div>`;
@@ -588,7 +588,7 @@ function renderAgenda() {
   const pastCount = blocks.filter(bk => bk.end < TODAY).length;
   const show = state.hidePast ? blocks.filter(bk => bk.end >= TODAY) : blocks;
   let html = '';
-  if (state.hidePast && pastCount) html += `<button type="button" class="btn showpast" id="showPastBtn">إظهار ${pastCount === 1 ? 'أسبوع فات' : pastCount + ' أسابيع فاتت'}</button>`;
+  if (state.hidePast && pastCount) html += `<button type="button" class="btn showpast" id="showPastBtn">إظهار ${pastCount === 1 ? 'أسبوع سابق' : pastCount + ' أسابيع سابقة'}</button>`;
   if (!show.length) html += `<p class="empty">مفيش حاجة جاية في ${D.terms[state.sem].name}.</p>`;
   show.forEach(bk => {
     const cur = TODAY >= bk.start && TODAY <= bk.end;
@@ -687,7 +687,7 @@ function renderKeyDates() {
     <li class="${e.to < TODAY ? 'past' : ''}${i === nextIdx ? ' upnext' : ''}">
       <span class="dt">${e.from === e.to ? fmtDate(e.from, {year:true}) : fmtRange(e.from, e.to, true)}</span>
       <span class="ti">${esc(e.title)}${e.note ? `<small>${esc(e.note)}</small>` : ''}</span>
-      <span class="ty ${e.type}">${i === nextIdx ? 'الجاي' : EV_LABEL[e.type]}</span>
+      <span class="ty ${e.type}">${i === nextIdx ? 'القادم' : EV_LABEL[e.type]}</span>
     </li>`).join('');
 }
 

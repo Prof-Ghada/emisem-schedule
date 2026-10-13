@@ -272,7 +272,7 @@ footer{color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);padd
     <div class="sec-head">
       <div>
         <h2 id="wk-title">الجدول الأسبوعي الثابت</h2>
-        <p>نفس المواعيد كل أسبوع، ما عدا الإجازات اللي تحت.</p>
+        <p>نفس المواعيد كل أسبوع، ما عدا الإجازات المذكورة ادناه.</p>
       </div>
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
         <span class="status-msg" id="copyMsg" aria-live="polite"></span>
@@ -442,7 +442,7 @@ function renderNext() {
   const el = $('next');
   const T = D.terms[state.sem];
   if (!list.length) {
-    el.innerHTML = `<div class="eyebrow">المحاضرة القادمة</div><p class="muted">مفيش مواد مختارة. اختار مادة أو أكتر من الفلاتر تحت.</p>`;
+    el.innerHTML = `<div class="eyebrow">المحاضرة القادمة</div><p class="muted">مفيش مواد مختارة. اختار مادة أو أكتر من الفلاتر .</p>`;
     return;
   }
   const live = list.find(s => now >= s.s && now < s.e);
